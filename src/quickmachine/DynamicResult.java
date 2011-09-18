@@ -13,7 +13,12 @@ class DynamicResult extends Result {
     }
 
     @Override
-    public boolean isException() {
-        return Exception.class.isInstance(this.get());
+    public boolean isEqual(Object obj) {
+        return this.obj.equals(obj);
+    }
+
+    @Override
+    public boolean isInstance(Class cls) {
+        return cls.isInstance(this.get());
     }
 }

@@ -72,7 +72,7 @@ public class TestAuth {
                     public State nextState(State state, Result res) {
                         // Should be a NOP for all users except Alice
                         if (state.has("cookie") && state.get("user").equals("Alice")) {
-                            return state.next().set("egg_token", res.get());
+                            return state.next().set("egg_token", res);
                         }
                         return state.next();
                     }
@@ -86,7 +86,7 @@ public class TestAuth {
                         String user = (String) prior.get("user");
                         switch (user) {
                             case "Alice":
-                                return String.class.isInstance(res.get());
+                                return res.isInstance(String.class);
                             case "Bob":
                                 return res.isException();
                             default:
@@ -124,7 +124,7 @@ public class TestAuth {
                     @Override
                     public State nextState(State state, Result res) {
                         if (state.has("cookie")) {
-                            return state.next().set("spam_token", res.get());
+                            return state.next().set("spam_token", res);
                         }
                         return state.next();
                     }
@@ -154,7 +154,7 @@ public class TestAuth {
                             return res.isException();
                         }
 
-                        return String.class.isInstance(res.get());
+                        return res.isInstance(String.class);
                     }
 
                     @Override
@@ -200,7 +200,7 @@ public class TestAuth {
 
         @Override
         public State nextState(State state, Result res) {
-            return state.next().set("user", this.user).set("cookie", res.get());
+            return state.next().set("user", this.user).set("cookie", res);
         }
 
         @Override
