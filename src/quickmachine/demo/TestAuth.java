@@ -40,7 +40,7 @@ public class TestAuth {
 
                     @Override
                     public boolean postcondition(DynamicState prior, Result res) {
-                        return Exception.class.isInstance(res.get());
+                        return res.isException();
                     }
 
                     @Override
@@ -80,7 +80,7 @@ public class TestAuth {
                     @Override
                     public boolean postcondition(DynamicState prior, Result res) {
                         if (!prior.has("cookie")) {
-                            return Exception.class.isInstance(res.get());
+                            return res.isException();
                         }
 
                         String user = (String) prior.get("user");
@@ -88,7 +88,7 @@ public class TestAuth {
                             case "Alice":
                                 return String.class.isInstance(res.get());
                             case "Bob":
-                                return Exception.class.isInstance(res.get());
+                                return res.isException();
                             default:
                                 throw new RuntimeException("Unexpected state");
                         }
@@ -104,11 +104,11 @@ public class TestAuth {
                     @Override
                     public boolean postcondition(DynamicState prior, Result res) {
                         if (!prior.has("egg_token")) {
-                            return Exception.class.isInstance(res.get());
+                            return res.isException();
                         }
 
                         if (!prior.has("user") || !prior.get("user").equals("Alice")) {
-                            return Exception.class.isInstance(res.get());
+                            return res.isException();
                         }
 
                         return String.class.isInstance(res.get());
@@ -132,7 +132,7 @@ public class TestAuth {
                     @Override
                     public boolean postcondition(DynamicState prior, Result res) {
                         if (!prior.has("cookie")) {
-                            return Exception.class.isInstance(res.get());
+                            return res.isException();
                         }
                         return String.class.isInstance(res.get());
                     }
@@ -147,11 +147,11 @@ public class TestAuth {
                     @Override
                     public boolean postcondition(DynamicState prior, Result res) {
                         if (!prior.has("spam_token")) {
-                            return Exception.class.isInstance(res.get());
+                            return res.isException();
                         }
 
                         if (!prior.has("user")) {
-                            return Exception.class.isInstance(res.get());
+                            return res.isException();
                         }
 
                         return String.class.isInstance(res.get());

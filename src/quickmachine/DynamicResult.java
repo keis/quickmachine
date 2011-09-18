@@ -11,4 +11,9 @@ class DynamicResult extends Result {
     public Object get() {
         return obj;
     }
+
+    @Override
+    public boolean isException() {
+        return Exception.class.isInstance(this.get());
+    }
 }
