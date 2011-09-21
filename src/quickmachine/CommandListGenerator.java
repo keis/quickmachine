@@ -1,7 +1,7 @@
 package quickmachine;
 
 import net.java.quickcheck.Generator;
-import net.java.quickcheck.generator.support.IntegerGenerator;
+import net.java.quickcheck.generator.PrimitiveGenerators;
 
 public class CommandListGenerator implements Generator<CommandList> {
     private final StateMachine statem;
@@ -15,7 +15,7 @@ public class CommandListGenerator implements Generator<CommandList> {
         this.maxTries = 10;
         this.minSize = 5;
         this.maxSize = 512;
-        this.targetSize = new IntegerGenerator(this.minSize, this.maxSize);
+        this.targetSize = PrimitiveGenerators.integers(this.minSize, this.maxSize);
     }
 
     @Override
