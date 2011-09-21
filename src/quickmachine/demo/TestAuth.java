@@ -35,7 +35,7 @@ public class TestAuth {
 
                     @Override
                     public boolean precondition(SymbolicState state) {
-                        return !state.has("cookie");
+                        return !state.has("user");
                     }
 
                     @Override
@@ -52,12 +52,12 @@ public class TestAuth {
 
                     @Override
                     public State nextState(State state, Result res) {
-                        return state.next().unset("cookie").unset("user");
+                        return state.next().unset("user");
                     }
 
                     @Override
                     public boolean precondition(SymbolicState state) {
-                        return state.has("cookie");
+                        return state.has("user");
                     }
 
                     @Override
@@ -71,7 +71,7 @@ public class TestAuth {
                     @Override
                     public State nextState(State state, Result res) {
                         // Should be a NOP for all users except Alice
-                        if (state.has("cookie") && state.get("user").equals("Alice")) {
+                        if (state.has("user") && state.get("user").equals("Alice")) {
                             return state.next().set("egg_token", res);
                         }
                         return state.next();
@@ -79,7 +79,7 @@ public class TestAuth {
 
                     @Override
                     public boolean postcondition(DynamicState prior, Result res) {
-                        if (!prior.has("cookie")) {
+                        if (!prior.has("user")) {
                             return res.isException();
                         }
 
@@ -123,7 +123,7 @@ public class TestAuth {
 
                     @Override
                     public State nextState(State state, Result res) {
-                        if (state.has("cookie")) {
+                        if (state.has("user")) {
                             return state.next().set("spam_token", res);
                         }
                         return state.next();
@@ -131,7 +131,7 @@ public class TestAuth {
 
                     @Override
                     public boolean postcondition(DynamicState prior, Result res) {
-                        if (!prior.has("cookie")) {
+                        if (!prior.has("user")) {
                             return res.isException();
                         }
                         return String.class.isInstance(res.get());
@@ -205,7 +205,7 @@ public class TestAuth {
 
         @Override
         public boolean precondition(SymbolicState state) {
-            return !state.has("cookie");
+            return !state.has("user");
         }
 
         @Override
