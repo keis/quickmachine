@@ -34,7 +34,7 @@ public class TestAuth {
                 new Call("Invalid Login") {
 
                     @Override
-                    public boolean precondition(SymbolicState state) {
+                    public boolean precondition(State state) {
                         return !state.has("user");
                     }
 
@@ -56,7 +56,7 @@ public class TestAuth {
                     }
 
                     @Override
-                    public boolean precondition(SymbolicState state) {
+                    public boolean precondition(State state) {
                         return state.has("user");
                     }
 
@@ -204,7 +204,7 @@ public class TestAuth {
         }
 
         @Override
-        public boolean precondition(SymbolicState state) {
+        public boolean precondition(State state) {
             return !state.has("user");
         }
 

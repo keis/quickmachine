@@ -6,7 +6,7 @@ public class SymbolicState extends State {
         super();
     }
     
-    public SymbolicState(SymbolicState prior) {
+    public SymbolicState(State prior) {
         super(prior);
     }
     

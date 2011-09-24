@@ -28,7 +28,7 @@ abstract public class Call {
      * @param state the current state
      * @return true if the Call can be performed in the current state
      */
-    public boolean precondition(SymbolicState state) {
+    public boolean precondition(State state) {
         return true;
     }
 

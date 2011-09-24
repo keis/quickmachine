@@ -1,9 +1,9 @@
 package quickmachine;
 
-class SymbolicResult extends Result {
+public class SymbolicResult extends Result {
     private final SymbolicVar var;
 
-    public SymbolicResult() {
+    SymbolicResult() {
         var = new SymbolicVar();
     }
 

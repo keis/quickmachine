@@ -4,6 +4,7 @@ import net.java.quickcheck.Generator;
 import net.java.quickcheck.generator.PrimitiveGenerators;
 
 public class CommandListGenerator implements Generator<CommandList> {
+
     private final StateMachine statem;
     private final int maxTries;
     private final int minSize;
@@ -21,13 +22,13 @@ public class CommandListGenerator implements Generator<CommandList> {
     @Override
     public CommandList next() {
         CommandList list = new CommandList(this.statem);
-        SymbolicState state = new SymbolicState(this.statem.initialState());
-        Call nextCommand = null;
+        State state = new SymbolicState(this.statem.initialState());
+        Call command = null;
         int size = this.targetSize.next();
-        
+
         while (list.size() < size) {
             try {
-                nextCommand = this.yieldCommand(state);
+                command = this.yieldCommand(state);
             } catch (Exception e) {
                 if (list.size() > this.minSize) {
                     return list;
@@ -35,19 +36,20 @@ public class CommandListGenerator implements Generator<CommandList> {
                     throw new UnsupportedOperationException("Failed to create commandlist");
                 }
             }
-            
-            list.add(nextCommand);
-            state = (SymbolicState) nextCommand.nextState(state, new SymbolicResult());
+
+            list.add(command);
+            state = (SymbolicState) command.nextState(state,
+                    new SymbolicResult());
         }
         return list;
     }
 
-    private Call yieldCommand(SymbolicState state) throws Exception {
+    private Call yieldCommand(State state) throws Exception {
         int run = 0;
         Call call = null;
         do {
             call = this.statem.command(state);
-            if(++run > maxTries) {
+            if (++run > maxTries) {
                 throw new Exception("Could not get suitable command");
             }
         } while (!call.precondition(state));

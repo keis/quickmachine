@@ -4,7 +4,7 @@ import java.util.List;
 import net.java.quickcheck.generator.support.EnsuredValuesGenerator;
 
 public abstract class StateMachine {
-    final EnsuredValuesGenerator commands;
+    final protected EnsuredValuesGenerator commands;
 
     public StateMachine(List<Call> commands) {
         this.commands = new EnsuredValuesGenerator(commands);
@@ -15,7 +15,7 @@ public abstract class StateMachine {
     /**
      * Generates a symbolic call to be included in the command sequence
      */
-    Call command(SymbolicState state) {
+    Call command(State state) {
         return (Call) this.commands.next();
     }
 }

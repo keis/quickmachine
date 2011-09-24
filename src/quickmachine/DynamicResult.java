@@ -1,9 +1,9 @@
 package quickmachine;
 
-class DynamicResult extends Result {
+public class DynamicResult extends Result {
     private final Object obj;
 
-    public DynamicResult(Object obj) {
+    DynamicResult(Object obj) {
         this.obj = obj;
     }
     
