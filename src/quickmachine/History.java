@@ -5,7 +5,7 @@ import java.util.List;
 
 public class History {
 
-    private class Item {
+    class Item {
 
         public Call call;
         public State state;
@@ -27,7 +27,7 @@ public class History {
         return this.history.add(new Item(call, state, result));
     }
 
-    private Item last() throws IndexOutOfBoundsException {
+    Item last() throws IndexOutOfBoundsException {
         return this.history.get(this.history.size() - 1);
     }
 

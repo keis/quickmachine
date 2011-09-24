@@ -8,6 +8,9 @@ import quickmachine.Call;
 import quickmachine.CommandList;
 import quickmachine.CommandListGenerator;
 import quickmachine.DynamicState;
+import quickmachine.ExecutionContext;
+import quickmachine.History;
+import quickmachine.PostConditionError;
 import quickmachine.Result;
 import quickmachine.State;
 import quickmachine.StateMachine;
@@ -173,8 +176,8 @@ public class TestAuth {
     private void run() {
         CommandListGenerator clg = new CommandListGenerator(this.statem);
         CommandList cl = clg.next();
-        State s = cl.execute();
-        System.out.println(s.toString());
+        ExecutionContext ec = new ExecutionContext(statem);
+        ec.execute(cl);
     }
 
     /**
